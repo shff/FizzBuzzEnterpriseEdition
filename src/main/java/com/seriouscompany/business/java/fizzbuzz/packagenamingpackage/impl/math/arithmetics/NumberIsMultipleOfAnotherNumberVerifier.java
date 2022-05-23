@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.seriouscompany.business.java.fizzbuzz.packagenamingpackage.impl.strategies.comparators.integercomparator.IntegerForEqualityComparator;
+import com.seriouscompany.business.java.fizzbuzz.packagenamingpackage.impl.strategies.comparators.integercomparator.ThreeWayIntegerComparator;
 
 /**
  * NumberIsMultipleOfAnotherNumberVerifier
@@ -41,7 +42,7 @@ public class NumberIsMultipleOfAnotherNumberVerifier {
 					(NumberIsMultipleOfAnotherNumberVerifier.integerDivider.divide(nFirstNumber, nSecondNumber));
 			final int nMultiplyDivisionResultBySecondIntegerResult =
 					nDivideFirstIntegerBySecondIntegerResult * nSecondNumber;
-			if (IntegerForEqualityComparator.areTwoIntegersEqual(nMultiplyDivisionResultBySecondIntegerResult,
+			if (new IntegerForEqualityComparator(new ThreeWayIntegerComparator()).areTwoIntegersEqual(nMultiplyDivisionResultBySecondIntegerResult,
 					nFirstNumber)) {
 				return true;
 			} else {
