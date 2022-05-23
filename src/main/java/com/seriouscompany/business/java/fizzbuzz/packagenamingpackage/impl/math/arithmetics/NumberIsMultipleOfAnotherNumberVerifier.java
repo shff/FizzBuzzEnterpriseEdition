@@ -19,13 +19,17 @@ public class NumberIsMultipleOfAnotherNumberVerifier {
 
 	private IntegerDivider integerDivider;
 	private ApplicationContextHolder applicationContextHolder;
+	private final IntegerForEqualityComparator integerForEqualityComparator;
 
 	/**
 	 * @param integerDivider IntegerDivider
 	 */
-	public NumberIsMultipleOfAnotherNumberVerifier(final IntegerDivider integerDivider) {
+	public NumberIsMultipleOfAnotherNumberVerifier(final IntegerDivider integerDivider,
+		final IntegerForEqualityComparator integerForEqualityComparator
+	) {
 		super();
 		this.integerDivider = integerDivider;
+		this.integerForEqualityComparator = integerForEqualityComparator;
 		final ApplicationContext applicationContext = this.applicationContextHolder.getApplicationContext();
 	}
 
@@ -37,7 +41,7 @@ public class NumberIsMultipleOfAnotherNumberVerifier {
 	public boolean isNumberMultipleOfAnotherNumber(final int nFirstInteger, final int nSecondInteger) {
 		final int nQuotient = this.integerDivider.divide(nFirstInteger, nSecondInteger);
 		final boolean isNumberMultipleOfAnotherNumber =
-				new IntegerForEqualityComparator(new ThreeWayIntegerComparator()).areTwoIntegersEqual(nQuotient, Constants.INTEGER_ORIGIN_ZERO_VALUE);
+				this.integerForEqualityComparator.areTwoIntegersEqual(nQuotient, Constants.INTEGER_ORIGIN_ZERO_VALUE);
 		return isNumberMultipleOfAnotherNumber;
 	}
 
@@ -52,7 +56,7 @@ public class NumberIsMultipleOfAnotherNumberVerifier {
 					(this.integerDivider.divide(nFirstNumber, nSecondNumber));
 			final int nMultiplyDivisionResultBySecondIntegerResult =
 					nDivideFirstIntegerBySecondIntegerResult * nSecondNumber;
-			if (new IntegerForEqualityComparator(new ThreeWayIntegerComparator()).areTwoIntegersEqual(nMultiplyDivisionResultBySecondIntegerResult,
+			if (this.integerForEqualityComparator.areTwoIntegersEqual(nMultiplyDivisionResultBySecondIntegerResult,
 					nFirstNumber)) {
 				return true;
 			} else {

@@ -19,6 +19,7 @@ public class IntegerDivider {
 
 	private final FirstIsSmallerThanSecondDoubleComparator firstIsSmallerThanSecondDoubleComparator;
 	private final FirstIsLargerThanSecondDoubleComparator firstIsLargerThanSecondDoubleComparator;
+	private final IntegerForEqualityComparator integerForEqualityComparator;
 
 	/**
 	 * @param firstIsLargerThanSecondDoubleComparator FirstIsLargerThanSecondDoubleComparator
@@ -26,10 +27,13 @@ public class IntegerDivider {
 	 */
 	@Autowired
 	public IntegerDivider(final FirstIsLargerThanSecondDoubleComparator firstIsLargerThanSecondDoubleComparator,
-			final FirstIsSmallerThanSecondDoubleComparator firstIsSmallerThanSecondDoubleComparator) {
+			final FirstIsSmallerThanSecondDoubleComparator firstIsSmallerThanSecondDoubleComparator,
+			final IntegerForEqualityComparator integerForEqualityComparator
+			) {
 		super();
 		this.firstIsLargerThanSecondDoubleComparator = firstIsLargerThanSecondDoubleComparator;
 		this.firstIsSmallerThanSecondDoubleComparator = firstIsSmallerThanSecondDoubleComparator;
+		this.integerForEqualityComparator = integerForEqualityComparator;
 	}
 
 	/**
@@ -39,7 +43,7 @@ public class IntegerDivider {
 	 */
 	public int divide(final int nFirstInteger, final int nSecondInteger) {
 		final boolean denominatorEqualsZero =
-				new IntegerForEqualityComparator(new ThreeWayIntegerComparator()).areTwoIntegersEqual(nSecondInteger, Constants.INTEGER_DIVIDE_ZERO_VALUE);
+				this.integerForEqualityComparator.areTwoIntegersEqual(nSecondInteger, Constants.INTEGER_DIVIDE_ZERO_VALUE);
 		if (denominatorEqualsZero) {
 			throw new ArithmeticException(Constants.AN_ATTEMPT_WAS_MADE_TO_DIVIDE_BY_ZERO);
 		} else {

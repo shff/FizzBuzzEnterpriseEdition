@@ -22,11 +22,15 @@ public final class ThreeWayIntegerComparator implements AbstractComparator {
 	private final List<ResultStrategy> contexts;
 	private final AbstractIntegerComparator myAbstractIntegerComparator;
 
-	public ThreeWayIntegerComparator() {
+	public ThreeWayIntegerComparator(
+		FirstEqualSecondResultStrategy firstEqualSecondResultStrategy,
+		FirstIsGreaterThanSecondResultStrategy firstIsGreaterThanSecondResultStrategy,
+		FirstIsLessThanSecondResultStrategy firstIsLessThanSecondResultStrategy
+	) {
 		this.contexts = new ArrayList<ResultStrategy>();
-		this.contexts.add(new FirstEqualSecondResultStrategy());
-		this.contexts.add(new FirstIsLessThanSecondResultStrategy());
-		this.contexts.add(new FirstIsGreaterThanSecondResultStrategy());
+		this.contexts.add(firstEqualSecondResultStrategy);
+		this.contexts.add(firstIsLessThanSecondResultStrategy);
+		this.contexts.add(firstIsGreaterThanSecondResultStrategy);
 		this.myAbstractIntegerComparator = new AbstractIntegerComparator(this.contexts);
 	}
 
