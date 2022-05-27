@@ -3,6 +3,7 @@ package com.seriouscompany.business.java.fizzbuzz.packagenamingpackage.impl.stri
 import org.springframework.stereotype.Service;
 
 import com.seriouscompany.business.java.fizzbuzz.packagenamingpackage.interfaces.stringreturners.StringStringReturner;
+import com.seriouscompany.business.java.fizzbuzz.packagenamingpackage.interfaces.stringreturners.StringSeparator;
 
 /**
  * Returner for NewLineString
@@ -10,12 +11,20 @@ import com.seriouscompany.business.java.fizzbuzz.packagenamingpackage.interfaces
 @Service
 public class NewLineStringReturner implements StringStringReturner {
 
+	final private StringSeparator stringSeparator;
+
+	/**
+	 * @param stringSeparator
+	 */
+	public NewLineStringReturner(final StringSeparator stringSeparator) {
+		this.stringSeparator = stringSeparator;
+	}
+
 	/**
 	 * @return
 	 */
 	public String getReturnString() {
-		final String systemDefaultNewLineString = System.getProperty(
-				com.seriouscompany.business.java.fizzbuzz.packagenamingpackage.impl.Constants.LINE_SEPARATOR);
+		final String systemDefaultNewLineString = this.stringSeparator.getSeparator();
 		final StringBuilder myStringBuilder = new StringBuilder(systemDefaultNewLineString);
 		final String myString = myStringBuilder.toString();
 		return new String(myString);
